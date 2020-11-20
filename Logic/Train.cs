@@ -8,10 +8,27 @@ namespace Logic
     public class Train
     {
         private List<Wagon> allWagons;
+        private List<Animal> Animals;
 
         public Train()
         {
             allWagons = new List<Wagon>();
+            Animals = new List<Animal>();
+        }
+
+        // Add animal to list
+        public void AddAnimalToList(Animal animal)
+        {
+            Animals.Add(animal);
+        }
+
+        // Add animals from list to wagon
+        public void AddAnimals()
+        {
+            foreach (Animal animal in Animals)
+            {
+                AddAnimal(animal);
+            }
         }
 
         // Add animal to wagon
@@ -46,7 +63,7 @@ namespace Logic
         {
             StringBuilder builder = new StringBuilder();
 
-            // Start int i on 1, because wagon 0 does not exist
+            // Start int i on 1, because wagon 0 is weird
             for (int i = 1; i < allWagons.ToList().Count; i++)
             {
                 Wagon wagon = allWagons.ToList()[i];

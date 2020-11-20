@@ -6,6 +6,6 @@ namespace Logic
 {
     public class Herbivore : Animal
     {
-        public Herbivore(string name, int size) : base(name, size) { }
+        public Herbivore(string animalName, Size animalSize) : base(animalName, animalSize) { }
     }
 }

@@ -4,27 +4,24 @@ using System.Text;
 
 namespace Logic
 {
+    public enum Size
+    {
+        Empty = 0,
+        Small = 1,
+        Medium = 3,
+        Large = 5
+    }
+
     public abstract class Animal
     {
-        // Properties
-        private readonly string _name;
-        // Maybe add enum
-        private readonly int _size;
+        public string name { get; set; }
+        public Size size { get; set; }
+        
 
-        protected Animal(string name, int size)
+        protected Animal(string animalName, Size animalSize)
         {
-            _name = name;
-            _size = size;
-        }
-
-        public int GetSize()
-        {
-            return _size;
-        }
-
-        public string GetName()
-        {
-            return _name;
+            name = animalName;
+            size = animalSize;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Logic
         public void AddAnimalToWagon(Animal animal)
         {
             allAnimals.Add(animal);
-            _size -= animal.GetSize();
+            _size -= Convert.ToInt32(animal.size);
         }
 
         // Check if there are other carnivores already, as there can only be one per wagon
@@ -33,17 +33,6 @@ namespace Logic
         {
             // Do it the LINQ way (thanks Bert)
             return allAnimals.FindAll(e => e.GetType() == typeof(Carnivore)).Count > 0;
-
-            // Old way
-            //foreach(Animal animal in allAnimals)
-            //{
-            //    if (animal is Carnivore)
-            //    {
-            //        return true;
-            //    }
-            //}
-
-            //return false;
         }
 
         // Get the smallest herbivore
@@ -57,7 +46,7 @@ namespace Logic
                 if (animal is Herbivore)
                 {
                     // If herbivore == null, give it a value
-                    if (herbivore == null || animal.GetSize() < herbivore.GetSize())
+                    if (herbivore == null || animal.size < herbivore.size)
                     {
                         herbivore = (Herbivore)animal;
                     }
@@ -70,7 +59,7 @@ namespace Logic
         // Get biggest carnivore
         private Carnivore GetBiggestCarnivore()
         {
-            Carnivore carnivore = new Carnivore("", 0);
+            Carnivore carnivore = new Carnivore("", Size.Empty);
 
             foreach (Animal animal in allAnimals)
             {
@@ -90,7 +79,7 @@ namespace Logic
         // Check if an animal is able to be added to an existing wagon. If that's not the case, add another wagon
         public bool AnimalAddCheck(Animal animal)
         {
-            if (_size >= animal.GetSize())
+            if (_size >= Convert.ToInt32(animal.size))
             {
                 // Check if there are other carnivores already
                 if (CheckCarnivore()) // There is already a carnivore in the wagon
@@ -98,7 +87,7 @@ namespace Logic
                     // Get biggest carnivore
                     Animal biggestCarnivore = GetBiggestCarnivore();
 
-                    if (animal.GetSize() > biggestCarnivore.GetSize())
+                    if (animal.size > biggestCarnivore.size)
                     {
                         return true;
                     }
@@ -108,7 +97,7 @@ namespace Logic
                     // Get smallest herbivore
                     Animal smallestHerbivore = GetSmallestHerbivore();
 
-                    if (smallestHerbivore != null && smallestHerbivore.GetSize() > animal.GetSize())
+                    if (smallestHerbivore != null && smallestHerbivore.size > animal.size)
                     {
                         return true;
                     }
@@ -125,7 +114,7 @@ namespace Logic
 
             foreach (Animal animal in allAnimals)
             {
-                builder.Append($"- Name: {animal.GetName()} \r\n - Size: {animal.GetSize()} \r\n - Type: {animal.GetType()} \r\n");
+                builder.Append($"- Name: {animal.name} \r\n - Size: {animal.size} \r\n - Type: {animal.GetType()} \r\n");
             }
 
             return builder.ToString();
