@@ -1,31 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace Logic
 {
     public class Wagon
     {
-        private List<Animal> allAnimals;
-        private int _size = 10;
-
-        public Wagon()
-        {
-            allAnimals = new List<Animal>();
-        }
+        private List<Animal> allAnimals = new List<Animal>();
+        public int size { get{return 10 - allAnimals.Sum(e => (int)e.size);} }
 
         // Returns the wagons' current size
         public int GetSize()
         {
-            return _size;
+            return size;
         }
 
         // Add animal to list and subtract it's size from the wagons' size
         public void AddAnimalToWagon(Animal animal)
         {
             allAnimals.Add(animal);
-            _size -= Convert.ToInt32(animal.size);
         }
 
         // Check if there are other carnivores already, as there can only be one per wagon
@@ -79,7 +74,7 @@ namespace Logic
         // Check if an animal is able to be added to an existing wagon. If that's not the case, add another wagon
         public bool AnimalAddCheck(Animal animal)
         {
-            if (_size >= Convert.ToInt32(animal.size))
+            if (size >= Convert.ToInt32(animal.size))
             {
                 // Check if there are other carnivores already
                 if (CheckCarnivore()) // There is already a carnivore in the wagon
